@@ -1,0 +1,39 @@
+---
+# UPRT INT
+
+middleware_apache_uprt_int_apache:
+  config_sets:
+    "tomcat_error_page_all_in_one": false
+    "tomcat_error_page_no404": true
+    # CR20386315 und CR20325412
+    CIS_Apache_HTTP_Server_2.4_Benchmark_v2.0.0_5.9: false
+    CIS_Apache_HTTP_Server_2.4_Benchmark_v2.0.0_9.1: false
+
+##### REMINDER If something in this group_vars definitino is changed, you should propably look at the uprt-host_vars files ######
+# apache:
+# instances:
+#   '01':
+#     acl_set: bdc_default_int_apache
+#     document_root: /srv/www-01
+#     modules: &modules
+#       - proxy
+#       - proxy_ajp
+#       - proxy_balancer
+#       - lbmethod_byrequests
+#       - slotmem_shm
+#       - status
+#       - ssl
+#       - alias
+#       - rewrite
+#       - mime
+#       - authz_host
+#       - headers
+#       - authn_core
+
+compliance:
+  apache:
+    "5.9":
+      exception: "CR20386315"
+    "9.1":
+      exception: "CR20325412"
+...

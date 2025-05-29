@@ -1,0 +1,1009 @@
+---
+# UPRT INT
+# 7x tomcat
+# 4x apache (1x Manger)
+#
+## BEGIN Settings ##
+
+### service name used for balancer etc. ###
+
+service1: 'portal-content'
+
+service2: 'search'
+
+service3: 'whoami'
+
+service4: 'roles'
+
+### Host specific information ###
+
+host_fq_hostname: 'mbddawrvib09527.mn-man.biz'
+
+### Tomcat informations - Use r-flag for remote tomcats (i.e. tc02r) ###
+### Appcount=32
+
+tc01_vars:
+  ip: '10.202.8.151'
+  port: '8009'
+  xms: '1g'
+  xmx: '1g'
+  app1: 'media'
+
+tc02_vars:
+  ip: '10.202.8.139'
+  port: '8009'
+  xms: '1g'
+  xmx: '1g'
+  app2: 'content'
+
+tc03_vars:
+  ip: '10.202.8.79'
+  port: '8009'
+  xms: '1g'
+  xmx: '1g'
+  app2: 'content'
+
+tc04_vars:
+  ip: '10.202.8.162'
+  port: '8009'
+  xms: '512m'
+  xmx: '512m'
+  app3: 'navigation'
+
+tc05_vars:
+  ip: '10.202.8.50'
+  port: '8009'
+  xms: '512m'
+  xmx: '512m'
+  app4: 'meta'
+
+tc06_vars:
+  ip: '10.202.8.160'
+  port: '8009'
+  xms: '1g'
+  xmx: '1g'
+  app5: 'whoami'
+  app6: 'roles'
+
+tc07_vars:
+  ip: '10.202.9.106'
+  port: '8009'
+  xms: '1g'
+  xmx: '1g'
+  app5: 'whoami'
+  app6: 'roles'
+
+tc07r_vars:
+  ip: '10.202.8.102'
+  port: '8009'
+  app7: 'contact'
+  app31: 'excepthandler'
+  app32: 'contactreact'
+  app33: 'supportreact'
+
+tc08r_vars:
+  ip: '10.202.8.115'
+  port: '8009'
+  app8: 'multistageservices'
+  app9: 'multistageview'
+  app10: 'multistagepublish'
+
+tc09r_vars:
+  ip: '10.202.8.143'
+  port: '8009'
+  app11: 'workshopmanager'
+  app29: 'JEXServer'
+
+tc10r_vars:
+  ip: '10.202.8.46'
+  port: '8009'
+  app12: 'workflow'
+
+tc11r_vars:
+  ip: '10.202.8.54'
+  port: '8009'
+  app14: 'iFinder'
+  app15: 'searchbar'
+  app16: 'searchgateway'
+  app17: 'appgateway'
+
+tc12r_vars:
+  ip: '10.202.9.35'
+  port: '8009'
+  app14: 'iFinder'
+  app15: 'searchbar'
+  app16: 'searchgateway'
+  app17: 'appgateway'
+
+tc13r_vars:
+  ip: '10.202.8.25'
+  port: '8009'
+  app18: 'aspshopwebapp'
+  app19: 'asppaymentwebapp'
+
+tc14r_vars:
+  ip: '10.202.11.170'
+  port: '8009'
+  app20: 'stpcodekatwebapp'
+
+tc15r_vars:
+  ip: '10.202.11.15'
+  port: '8009'
+  app21: 'vehicleexplorerui'
+  app22: 'vehicleexplorerservices'
+
+tc16r_vars:
+  ip: '10.202.11.13'
+  port: '8009'
+  app23: 'asplubricantsdb'
+  app24: 'm360'
+  app30: 'lawcertificates'
+
+tc17r_vars:
+  ip: '10.202.9.89'
+  port: '8009'
+  app25: 'asptechsupportwebapp'
+
+tc18r_vars:
+  ip: '10.202.10.159'
+  port: '8009'
+  app26: 'manportalframeworkwebapp'
+  app27: 'asplzrgwebapp'
+  app28: 'aspmultistagewebapp'
+
+tc19r_vars:
+  ip: '10.202.9.87'
+  port: '8009'
+  app13: 'upreporting'
+
+### Apache informations(san  optional) ###
+
+ap01_vars:
+  ip: '10.202.8.145'
+  dns: 'uprt-int-apache-03.mn-man.biz'
+  san1: 'portalsecured-int-apache-01.mn-man.biz'
+
+ap02_vars:
+  ip: '10.202.8.111'
+  dns: 'uprt-int-apache-04.mn-man.biz'
+  san1: 'portalsecured-int-apache-02.mn-man.biz'
+
+ap03_vars:
+  ip: '10.202.8.148'
+  dns: 'uprt-int-apache-05.mn-man.biz'
+  san1: 'portalsecured-int-apache-03.mn-man.biz'
+
+ap04_vars:
+  ip: '10.202.8.69'
+  dns: 'uprt-int-apache-06.mn-man.biz'
+  san1: 'portalsecured-int-apache-04.mn-man.biz'
+
+### app1 running on tc01
+
+### app2 running/balanced on tc02/tc03 using service1-cluster
+
+### app3 running on tc04
+
+### app4 running on tc05
+
+### app6 running balanced on tc06 and tc07 using service3-cluster
+
+### app6 running balanced on tc06 and tc07 using service4-cluster
+
+### app7/31/32/33 running on tc07r (mbddawrvib09519-cont-tomcat-int)
+
+### app8 to app 10 running on tc08r (mbdmawrvib09520-mult-tomcat-int)
+
+### app11/29 running on tc09r (mbdmawrvib09524-wmgr-tomcat-int)
+### app29 JEXServer - CR20191557 - Installation temporäre Applikation Jex
+
+### app12 running on tc10r, app13 running on tc19r
+### (both on mbddawrvib09523-work-tomcat-int)
+
+### app14/15/16/17 running/balanced on tc11r/tc12r using service2-cluster
+### (mbdcawrvib10894-aspe-tomcat-int/mbdmawrvib27525-aspe-tomcat-int)
+
+### app18/19 running on tc13r (mbdcawrvib13802-webs-tomcat-int)
+
+### app20 running on tc14r (mbdcawrvib14373-stpc-tomcat-int)
+
+### app21/22 running on tc15r (mbdcawrvib14849-vexp-tomcat-int)
+
+### app23/24/30 running on tc16r (mbdcawrvib24556-ludb-tomcat-int)
+
+### app25 running on tc17r (mbdcawrvib24553-tesu-tomcat-int)
+
+### app26/27/28 running on tc18r (mbdcawrvib24660-mpfw-tomcat-int)
+
+## END Settings ##
+
+metadata:
+  gen_hostname: mbddawrvib09527
+  gen_app_name: Unternehmens-Portalumgebung
+  gen_app_short_name: UPRT
+  business_service_name: 'Unternehmens_Portal'
+  contact_application_owner: michael.fischhaber@man.eu
+  contact_service_owner: tobias.usselmann@man.eu
+  contact_service_owner_sub: unknown
+  contact_technical_ap: rainer.wess@man.eu
+  department: FISS
+  gen_environment: INT
+  in_service: "yes"
+  gen_location: unknown
+  order_id: unknown
+  psp_element: S/01-00117-01
+  sc_applications_business_service: unknown
+  sc_applications_support_group: Web Platform Sales and After Sales Advanced Support MTB
+  sc_mawoh_group: Web Platform Support MTB
+  sc_os_maintainer_group: unknown
+  gen_service_level: Steel
+
+middleware_tomcat:
+  instances:
+    '01':
+    ## Normaly found in group_vars
+      config_sets:
+        "deploy_snoopy1_TC10": true
+      jolokia_source: "tomcat_files/deploy_files/jolokia_TC10_2.0.3.war"
+      manager:
+        name: 'manager1'
+      acl_set: bdc_default_int_tomcat
+      webapp_dir: /srv/tomcat-01/webapps
+      security_manager: false
+      log_dir: /var/log/tomcat-01
+      env_vars:
+        LC_ALL: "en_US.UTF-8"
+      context_config:
+        context_elements:
+          - '<Environment name="{{ tc01_vars.app1 }}FetcherConfigPath" value="/app/data/portal-config/{{ tc01_vars.app1 }}_config.json"
+            type="java.lang.String" override="false" />'
+          - '<Environment name="portalstage" value="int" type="java.lang.String" override="false" />'
+
+    ## host_vars/.../middleware.yml
+      server_config:
+        service_catalina:
+          connectors:
+            - '<Connector secretRequired="false" port="{{ tc01_vars.port }}" protocol="AJP/1.3" address="{{ tc01_vars.ip }}"/>'
+          engine:
+            host:
+              auto_deploy: true
+              deploy_xml: true
+
+      java_opts:
+        'server': true
+        'Xms': '{{ tc01_vars.xms }}'
+        'Xmx': '{{ tc01_vars.xmx }}'
+        'XX:+TieredCompilation': true
+        'XX:+UseG1GC': true
+        'Xlog:gc=info:file=/usr/share/tomcat-01/logs/gc.log:time,uptime,pid:filecount=10,filesize=10240000': true
+        'XX:+HeapDumpOnOutOfMemoryError': true
+        'XX:HeapDumpPath=/var/dumps/': true
+        'Djava.awt.headless=true': true
+        'Djava.net.preferIPv4Stack=true': true
+        'Dsun.jnu.encoding=UTF-8': true
+
+    '02':
+    ## Normaly found in group_vars
+      config_sets:
+        "deploy_snoopy2_TC10": true
+      jolokia_source: "tomcat_files/deploy_files/jolokia_TC10_2.0.3.war"
+      manager:
+        name: 'manager2'
+      acl_set: bdc_default_int_tomcat
+      webapp_dir: /srv/tomcat-02/webapps
+      security_manager: false
+      log_dir: /var/log/tomcat-02
+      env_vars:
+        LC_ALL: "en_US.UTF-8"
+      context_config:
+        context_elements:
+          - '<Environment name="{{ tc02_vars.app2 }}FetcherConfigPath" value="/app/data/portal-config/{{ tc02_vars.app2 }}_config.json"
+            type="java.lang.String" override="false" />'
+          - '<Environment name="portalstage" value="int" type="java.lang.String" override="false" />'
+
+    ## host_vars/.../middleware.yml
+      server_config:
+        service_catalina:
+          connectors:
+            - '<Connector secretRequired="false" port="{{ tc02_vars.port }}" protocol="AJP/1.3" address="{{ tc02_vars.ip }}"/>'
+          engine:
+            host:
+              auto_deploy: true
+              deploy_xml: true
+
+      java_opts:
+        'server': true
+        'Xms': '{{ tc02_vars.xms }}'
+        'Xmx': '{{ tc02_vars.xmx }}'
+        'XX:+TieredCompilation': true
+        'XX:+UseG1GC': true
+        'Xlog:gc=info:file=/usr/share/tomcat-02/logs/gc.log:time,uptime,pid:filecount=10,filesize=10240000': true
+        'XX:+HeapDumpOnOutOfMemoryError': true
+        'XX:HeapDumpPath=/var/dumps/': true
+        'Djava.awt.headless=true': true
+        'Djava.net.preferIPv4Stack=true': true
+        'Dsun.jnu.encoding=UTF-8': true
+
+    '03':
+    ## Normaly found in group_vars
+      config_sets:
+        "deploy_snoopy3_TC10": true
+      jolokia_source: "tomcat_files/deploy_files/jolokia_TC10_2.0.3.war"
+      manager:
+        name: 'manager3'
+      acl_set: bdc_default_int_tomcat
+      webapp_dir: /srv/tomcat-03/webapps
+      security_manager: false
+      log_dir: /var/log/tomcat-03
+      env_vars:
+        LC_ALL: "en_US.UTF-8"
+      context_config:
+        context_elements:
+          - '<Environment name="{{ tc02_vars.app2 }}FetcherConfigPath" value="/app/data/portal-config/{{ tc02_vars.app2 }}_config.json"
+            type="java.lang.String" override="false" />'
+          - '<Environment name="portalstage" value="int" type="java.lang.String" override="false" />'
+
+    ## host_vars/.../middleware.yml
+      server_config:
+        service_catalina:
+          connectors:
+            - '<Connector secretRequired="false" port="{{ tc03_vars.port }}" protocol="AJP/1.3" address="{{ tc03_vars.ip }}"/>'
+          engine:
+            host:
+              auto_deploy: true
+              deploy_xml: true
+
+      java_opts:
+        'server': true
+        'Xms': '{{ tc03_vars.xms }}'
+        'Xmx': '{{ tc03_vars.xmx }}'
+        'XX:+TieredCompilation': true
+        'XX:+UseG1GC': true
+        'Xlog:gc=info:file=/usr/share/tomcat-03/logs/gc.log:time,uptime,pid:filecount=10,filesize=10240000': true
+        'XX:+HeapDumpOnOutOfMemoryError': true
+        'XX:HeapDumpPath=/var/dumps/': true
+        'Djava.awt.headless=true': true
+        'Djava.net.preferIPv4Stack=true': true
+        'Dsun.jnu.encoding=UTF-8': true
+
+    '04':
+    ## Normaly found in group_vars
+      config_sets:
+        "deploy_snoopy4_TC10": true
+      jolokia_source: "tomcat_files/deploy_files/jolokia_TC10_2.0.3.war"
+      manager:
+        name: 'manager4'
+      acl_set: bdc_default_int_tomcat
+      webapp_dir: /srv/tomcat-04/webapps
+      security_manager: false
+      log_dir: /var/log/tomcat-04
+      env_vars:
+        LC_ALL: "en_US.UTF-8"
+      context_config:
+        context_elements:
+          - '<Environment name="{{ tc04_vars.app3 }}FetcherConfigPath" value="/app/data/portal-config/{{ tc04_vars.app3 }}_config.json"
+            type="java.lang.String" override="false" />'
+          - '<Environment name="portalstage" value="int" type="java.lang.String" override="false" />'
+
+    ## host_vars/.../middleware.yml
+      server_config:
+        service_catalina:
+          connectors:
+            - '<Connector secretRequired="false" port="{{ tc04_vars.port }}" protocol="AJP/1.3" address="{{ tc04_vars.ip }}"/>'
+          engine:
+            host:
+              auto_deploy: true
+              deploy_xml: true
+
+      java_opts:
+        'server': true
+        'Xms': '{{ tc04_vars.xms }}'
+        'Xmx': '{{ tc04_vars.xmx }}'
+        'XX:+TieredCompilation': true
+        'XX:+UseG1GC': true
+        'Xlog:gc=info:file=/usr/share/tomcat-04/logs/gc.log:time,uptime,pid:filecount=10,filesize=10240000': true
+        'XX:+HeapDumpOnOutOfMemoryError': true
+        'XX:HeapDumpPath=/var/dumps/': true
+        'Djava.awt.headless=true': true
+        'Djava.net.preferIPv4Stack=true': true
+        'Dsun.jnu.encoding=UTF-8': true
+
+    '05':
+    ## Normaly found in group_vars
+      config_sets:
+        "deploy_snoopy5_TC10": true
+      jolokia_source: "tomcat_files/deploy_files/jolokia_TC10_2.0.3.war"
+      manager:
+        name: 'manager5'
+      acl_set: bdc_default_int_tomcat
+      webapp_dir: /srv/tomcat-05/webapps
+      security_manager: false
+      log_dir: /var/log/tomcat-05
+      env_vars:
+        LC_ALL: "en_US.UTF-8"
+      context_config:
+        context_elements:
+          - '<Environment name="{{ tc05_vars.app4 }}FetcherConfigPath" value="/app/data/portal-config/{{ tc05_vars.app4 }}_config.json"
+            type="java.lang.String" override="false" />'
+          - '<Environment name="portalstage" value="int" type="java.lang.String" override="false" />'
+
+    ## host_vars/.../middleware.yml
+      server_config:
+        service_catalina:
+          connectors:
+            - '<Connector secretRequired="false" port="{{ tc05_vars.port }}" protocol="AJP/1.3" address="{{ tc05_vars.ip }}"/>'
+          engine:
+            host:
+              auto_deploy: true
+              deploy_xml: true
+
+      java_opts:
+        'server': true
+        'Xms': '{{ tc05_vars.xms }}'
+        'Xmx': '{{ tc05_vars.xmx }}'
+        'XX:+TieredCompilation': true
+        'XX:+UseG1GC': true
+        'Xlog:gc=info:file=/usr/share/tomcat-05/logs/gc.log:time,uptime,pid:filecount=10,filesize=10240000': true
+        'XX:+HeapDumpOnOutOfMemoryError': true
+        'XX:HeapDumpPath=/var/dumps/': true
+        'Djava.awt.headless=true': true
+        'Djava.net.preferIPv4Stack=true': true
+        'Dsun.jnu.encoding=UTF-8': true
+
+    '06':
+    ## Normaly found in group_var
+      config_sets:
+        "deploy_snoopy6_TC10": true
+      jolokia_source: "tomcat_files/deploy_files/jolokia_TC10_2.0.3.war"
+      manager:
+        name: 'manager6'
+      acl_set: bdc_default_int_tomcat
+      webapp_dir: /srv/tomcat-06/webapps
+      security_manager: false
+      log_dir: /var/log/tomcat-06
+      env_vars:
+        LC_ALL: "en_US.UTF-8"
+      context_config:
+        context_elements:
+          - '<Environment name="{{ tc06_vars.app5 }}ConfigPath" value="/app/data/portal-config/{{ tc06_vars.app5 }}_config.json"
+            type="java.lang.String" override="false" />'
+          - '<Environment name="portalstage" value="int" type="java.lang.String" override="false" />'
+
+    ## host_vars/.../middleware.yml
+      server_config:
+        service_catalina:
+          connectors:
+            - '<Connector secretRequired="false" port="{{ tc06_vars.port }}" protocol="AJP/1.3" address="{{ tc06_vars.ip }}"/>'
+          engine:
+            host:
+              auto_deploy: true
+              deploy_xml: true
+
+      java_opts:
+        'server': true
+        'Xms': '{{ tc06_vars.xms }}'
+        'Xmx': '{{ tc06_vars.xmx }}'
+        'XX:+TieredCompilation': true
+        'XX:+UseG1GC': true
+        'Xlog:gc=info:file=/usr/share/tomcat-06/logs/gc.log:time,uptime,pid:filecount=10,filesize=10240000': true
+        'XX:+HeapDumpOnOutOfMemoryError': true
+        'XX:HeapDumpPath=/var/dumps/': true
+        'Djava.awt.headless=true': true
+        'Djava.net.preferIPv4Stack=true': true
+        'Dsun.jnu.encoding=UTF-8': true
+
+    '07':
+    ## Normaly found in group_vars
+      config_sets:
+        "deploy_snoopy20_TC10": true
+      jolokia_source: "tomcat_files/deploy_files/jolokia_TC10_2.0.3.war"
+      manager:
+        name: 'manager20'
+      acl_set: bdc_default_int_tomcat
+      webapp_dir: /srv/tomcat-07/webapps
+      security_manager: false
+      log_dir: /var/log/tomcat-07
+      env_vars:
+        LC_ALL: "en_US.UTF-8"
+      context_config:
+        context_elements:
+          - '<Environment name="{{ tc06_vars.app5 }}ConfigPath" value="/app/data/portal-config/{{ tc06_vars.app5 }}_config.json"
+            type="java.lang.String" override="false" />'
+          - '<Environment name="portalstage" value="int" type="java.lang.String" override="false" />'
+
+    ## host_vars/.../middleware.yml
+      server_config:
+        service_catalina:
+          connectors:
+            - '<Connector secretRequired="false" port="{{ tc07_vars.port }}" protocol="AJP/1.3" address="{{ tc07_vars.ip }}"/>'
+          engine:
+            host:
+              auto_deploy: true
+              deploy_xml: true
+
+      java_opts:
+        'server': true
+        'Xms': '{{ tc07_vars.xms }}'
+        'Xmx': '{{ tc07_vars.xmx }}'
+        'XX:+TieredCompilation': true
+        'XX:+UseG1GC': true
+        'Xlog:gc=info:file=/usr/share/tomcat-07/logs/gc.log:time,uptime,pid:filecount=10,filesize=10240000': true
+        'XX:+HeapDumpOnOutOfMemoryError': true
+        'XX:HeapDumpPath=/var/dumps/': true
+        'Djava.awt.headless=true': true
+        'Djava.net.preferIPv4Stack=true': true
+        'Dsun.jnu.encoding=UTF-8': true
+
+reverse_target_proxies: &target_proxies
+  '/media':
+    target: ajp://{{ tc01_vars.ip }}:{{ tc01_vars.port }}/{{ tc01_vars.app1 }}
+  '/content':
+    target: balancer://{{ service1 }}-cluster/{{ tc02_vars.app2 }}
+  '/navigation':
+    target: ajp://{{ tc04_vars.ip }}:{{ tc04_vars.port }}/{{ tc04_vars.app3 }}
+  '/meta':
+    target: ajp://{{ tc05_vars.ip }}:{{ tc05_vars.port }}/{{ tc05_vars.app4 }}
+  '/whoami':
+    target: balancer://{{ service3 }}-cluster/{{ tc06_vars.app5 }}
+  '/roles':
+    target: balancer://{{ service4 }}-cluster/{{ tc06_vars.app6 }}
+  # contact
+  '/contact':
+    target: ajp://{{ tc07r_vars.ip }}:{{ tc07r_vars.port }}/{{ tc07r_vars.app7 }}
+  '/excepthandler':
+    target: ajp://{{ tc07r_vars.ip }}:{{ tc07r_vars.port }}/{{ tc07r_vars.app31 }}
+  '/contactreact':
+    target: ajp://{{ tc07r_vars.ip }}:{{ tc07r_vars.port }}/{{ tc07r_vars.app32 }}
+  '/supportreact':
+    target: ajp://{{ tc07r_vars.ip }}:{{ tc07r_vars.port }}/{{ tc07r_vars.app33 }}
+  # Multistage
+  '/multistageservices':
+    target: ajp://{{ tc08r_vars.ip }}:{{ tc08r_vars.port }}/{{ tc08r_vars.app8 }}
+  '/multistageview':
+    target: ajp://{{ tc08r_vars.ip }}:{{ tc08r_vars.port }}/{{ tc08r_vars.app9 }}
+  '/multistagepublish':
+    target: ajp://{{ tc08r_vars.ip }}:{{ tc08r_vars.port }}/{{ tc08r_vars.app10 }}
+  # WSManager
+  '/workshopmanager':
+    target: ajp://{{ tc09r_vars.ip }}:{{ tc09r_vars.port }}/{{ tc09r_vars.app11 }}
+  # Workflow
+  '/workflow':
+    target: ajp://{{ tc10r_vars.ip }}:{{ tc10r_vars.port }}/{{ tc10r_vars.app12 }}
+  # Upreporting (on work)
+  '/upreporting':
+    target: ajp://{{ tc19r_vars.ip }}:{{ tc19r_vars.port }}/{{ tc19r_vars.app13 }}
+  # search/iFinder
+  '/iFinder':
+    target: balancer://{{ service2 }}-cluster/{{ tc11r_vars.app14 }}
+  '/searchbar':
+    target: balancer://{{ service2 }}-cluster/{{ tc11r_vars.app15 }}
+  '/searchgateway':
+    target: balancer://{{ service2 }}-cluster/{{ tc11r_vars.app16 }}
+  '/appgateway':
+    target: balancer://{{ service2 }}-cluster/{{ tc11r_vars.app17 }}
+  # aspwebshop
+  '/aspshopwebapp':
+    target: ajp://{{ tc13r_vars.ip }}:{{ tc13r_vars.port }}/{{ tc13r_vars.app18 }}
+  '/asppaymentwebapp':
+    target: ajp://{{ tc13r_vars.ip }}:{{ tc13r_vars.port }}/{{ tc13r_vars.app19 }}
+  # STPCodekatWebApp
+  '/stpcodekatwebapp':
+    target: ajp://{{ tc14r_vars.ip }}:{{ tc14r_vars.port }}/{{ tc14r_vars.app20 }}
+  # Vehicle Explorer VEXP
+  '/vehicleexplorerui':
+    target: ajp://{{ tc15r_vars.ip }}:{{ tc15r_vars.port }}/{{ tc15r_vars.app21 }}
+  '/vehicleexplorerservices':
+    target: ajp://{{ tc15r_vars.ip }}:{{ tc15r_vars.port }}/{{ tc15r_vars.app22 }}
+  # Lubricants DB
+  '/asplubricantsdb':
+    target: ajp://{{ tc16r_vars.ip }}:{{ tc16r_vars.port }}/{{ tc16r_vars.app23 }}
+  '/m360':
+    target: ajp://{{ tc16r_vars.ip }}:{{ tc16r_vars.port }}/{{ tc16r_vars.app24 }}
+  '/lawcertificates':
+    target: ajp://{{ tc16r_vars.ip }}:{{ tc16r_vars.port }}/{{ tc16r_vars.app30 }}
+  # JEXServer - CR20191557 - Installation temporäre Applikation Jex
+  '/JEXServer':
+    target: ajp://{{ tc09r_vars.ip }}:{{ tc09r_vars.port }}/{{ tc09r_vars.app29 }}
+  # TechSupport TESU
+  '/asptechsupportwebapp':
+    target: ajp://{{ tc17r_vars.ip }}:{{ tc17r_vars.port }}/{{ tc17r_vars.app25 }}
+  # MAN PortalFrameWork
+  '/manportalframeworkwebapp':
+    target: ajp://{{ tc18r_vars.ip }}:{{ tc18r_vars.port }}/{{ tc18r_vars.app26 }}
+  '/asplzrgwebapp':
+    target: ajp://{{ tc18r_vars.ip }}:{{ tc18r_vars.port }}/{{ tc18r_vars.app27 }}
+  '/aspmultistagewebapp':
+    target: ajp://{{ tc18r_vars.ip }}:{{ tc18r_vars.port }}/{{ tc18r_vars.app28 }}
+
+reverse_proxies_manager: &manager_proxies
+  <<: *target_proxies
+  /snoopy1:
+    target: ajp://{{ tc01_vars.ip }}:{{ tc01_vars.port }}/snoopy1
+  /jolokia1:
+    target: ajp://{{ tc01_vars.ip }}:{{ tc01_vars.port }}/jolokia
+  /manager1:
+    target: ajp://{{ tc01_vars.ip }}:{{ tc01_vars.port }}/manager1
+
+  /snoopy2:
+    target: ajp://{{ tc02_vars.ip }}:{{ tc02_vars.port }}/snoopy2
+  /jolokia2:
+    target: ajp://{{ tc02_vars.ip }}:{{ tc02_vars.port }}/jolokia
+  /manager2:
+    target: ajp://{{ tc02_vars.ip }}:{{ tc02_vars.port }}/manager2
+
+  /snoopy3:
+    target: ajp://{{ tc03_vars.ip }}:{{ tc03_vars.port }}/snoopy3
+  /jolokia3:
+    target: ajp://{{ tc03_vars.ip }}:{{ tc03_vars.port }}/jolokia
+  /manager3:
+    target: ajp://{{ tc03_vars.ip }}:{{ tc03_vars.port }}/manager3
+
+  /snoopy4:
+    target: ajp://{{ tc04_vars.ip }}:{{ tc04_vars.port }}/snoopy4
+  /jolokia4:
+    target: ajp://{{ tc04_vars.ip }}:{{ tc04_vars.port }}/jolokia
+  /manager4:
+    target: ajp://{{ tc04_vars.ip }}:{{ tc04_vars.port }}/manager4
+
+  /snoopy5:
+    target: ajp://{{ tc05_vars.ip }}:{{ tc05_vars.port }}/snoopy5
+  /jolokia5:
+    target: ajp://{{ tc05_vars.ip }}:{{ tc05_vars.port }}/jolokia
+  /manager5:
+    target: ajp://{{ tc05_vars.ip }}:{{ tc05_vars.port }}/manager5
+
+  /snoopy6:
+    target: ajp://{{ tc06_vars.ip }}:{{ tc06_vars.port }}/snoopy6
+  /jolokia6:
+    target: ajp://{{ tc06_vars.ip }}:{{ tc06_vars.port }}/jolokia
+  /manager6:
+    target: ajp://{{ tc06_vars.ip }}:{{ tc06_vars.port }}/manager6
+
+  /snoopy7:
+    target: ajp://{{ tc07r_vars.ip }}:{{ tc07r_vars.port }}/snoopy7
+  /jolokia7:
+    target: ajp://{{ tc07r_vars.ip }}:{{ tc07r_vars.port }}/jolokia
+  /manager7:
+    target: ajp://{{ tc07r_vars.ip }}:{{ tc07r_vars.port }}/manager7
+
+  /snoopy8:
+    target: ajp://{{ tc08r_vars.ip }}:{{ tc08r_vars.port }}/snoopy8
+  /jolokia8:
+    target: ajp://{{ tc08r_vars.ip }}:{{ tc08r_vars.port }}/jolokia
+  /manager8:
+    target: ajp://{{ tc08r_vars.ip }}:{{ tc08r_vars.port }}/manager8
+
+  /snoopy9:
+    target: ajp://{{ tc09r_vars.ip }}:{{ tc09r_vars.port }}/snoopy9
+  /jolokia9:
+    target: ajp://{{ tc09r_vars.ip }}:{{ tc09r_vars.port }}/jolokia
+  /manager9:
+    target: ajp://{{ tc09r_vars.ip }}:{{ tc09r_vars.port }}/manager9
+
+  /snoopy10:
+    target: ajp://{{ tc10r_vars.ip }}:{{ tc10r_vars.port }}/snoopy10
+  /jolokia10:
+    target: ajp://{{ tc10r_vars.ip }}:{{ tc10r_vars.port }}/jolokia
+  /manager10:
+    target: ajp://{{ tc10r_vars.ip }}:{{ tc10r_vars.port }}/manager10
+
+  /snoopy11:
+    target: ajp://{{ tc11r_vars.ip }}:{{ tc11r_vars.port }}/snoopy11
+  /jolokia11:
+    target: ajp://{{ tc11r_vars.ip }}:{{ tc11r_vars.port }}/jolokia
+  /manager11:
+    target: ajp://{{ tc11r_vars.ip }}:{{ tc11r_vars.port }}/manager11
+
+  /snoopy12:
+    target: ajp://{{ tc12r_vars.ip }}:{{ tc12r_vars.port }}/snoopy12
+  /jolokia12:
+    target: ajp://{{ tc12r_vars.ip }}:{{ tc12r_vars.port }}/jolokia
+  /manager12:
+    target: ajp://{{ tc12r_vars.ip }}:{{ tc12r_vars.port }}/manager12
+
+  /snoopy13:
+    target: ajp://{{ tc13r_vars.ip }}:{{ tc13r_vars.port }}/snoopy13
+  /jolokia13:
+    target: ajp://{{ tc13r_vars.ip }}:{{ tc13r_vars.port }}/jolokia
+  /manager13:
+    target: ajp://{{ tc13r_vars.ip }}:{{ tc13r_vars.port }}/manager13
+
+  /snoopy14:
+    target: ajp://{{ tc14r_vars.ip }}:{{ tc14r_vars.port }}/snoopy14
+  /jolokia14:
+    target: ajp://{{ tc14r_vars.ip }}:{{ tc14r_vars.port }}/jolokia
+  /manager14:
+    target: ajp://{{ tc14r_vars.ip }}:{{ tc14r_vars.port }}/manager14
+
+  /snoopy15:
+    target: ajp://{{ tc15r_vars.ip }}:{{ tc15r_vars.port }}/snoopy15
+  /jolokia15:
+    target: ajp://{{ tc15r_vars.ip }}:{{ tc15r_vars.port }}/jolokia
+  /manager15:
+    target: ajp://{{ tc15r_vars.ip }}:{{ tc15r_vars.port }}/manager15
+
+  /snoopy16:
+    target: ajp://{{ tc16r_vars.ip }}:{{ tc16r_vars.port }}/snoopy16
+  /jolokia16:
+    target: ajp://{{ tc16r_vars.ip }}:{{ tc16r_vars.port }}/jolokia
+  /manager16:
+    target: ajp://{{ tc16r_vars.ip }}:{{ tc16r_vars.port }}/manager16
+
+  /snoopy17:
+    target: ajp://{{ tc17r_vars.ip }}:{{ tc17r_vars.port }}/snoopy17
+  /jolokia17:
+    target: ajp://{{ tc17r_vars.ip }}:{{ tc17r_vars.port }}/jolokia
+  /manager17:
+    target: ajp://{{ tc17r_vars.ip }}:{{ tc17r_vars.port }}/manager17
+
+  /snoopy18:
+    target: ajp://{{ tc18r_vars.ip }}:{{ tc18r_vars.port }}/snoopy18
+  /jolokia18:
+    target: ajp://{{ tc18r_vars.ip }}:{{ tc18r_vars.port }}/jolokia
+  /manager18:
+    target: ajp://{{ tc18r_vars.ip }}:{{ tc18r_vars.port }}/manager18
+
+  /snoopy19:
+    target: ajp://{{ tc19r_vars.ip }}:{{ tc19r_vars.port }}/snoopy19
+  /jolokia19:
+    target: ajp://{{ tc19r_vars.ip }}:{{ tc19r_vars.port }}/jolokia
+  /manager19:
+    target: ajp://{{ tc19r_vars.ip }}:{{ tc19r_vars.port }}/manager19
+
+  /snoopy20:
+    target: ajp://{{ tc07_vars.ip }}:{{ tc07_vars.port }}/snoopy20
+  /jolokia20:
+    target: ajp://{{ tc07_vars.ip }}:{{ tc07_vars.port }}/jolokia
+  /manager20:
+    target: ajp://{{ tc07_vars.ip }}:{{ tc07_vars.port }}/manager20
+
+middleware_apache:
+  config_sets:
+    "AddBalancerApacheModules": true
+  instances:
+    '01':
+      acl_set: bdc_default_int_apache
+      document_root: /srv/www-01
+      # BEGIN error_pages
+      document_root_error: /srv/www-01/error_pages/
+      config_sets:
+        tomcat_error_page_no404: true
+      # END error_pages
+
+      raw_config: |
+        ErrorDocument 404 /
+
+      vhosts:
+        status-01:
+          server_name: status.tomcat.net
+          server_admin: tomcat-master@mawoh.de
+          listen: 127.0.0.1:10080
+          locations:
+            '/server-status':
+              set_handler: server-status
+              require: all granted
+        'uprt-int-apache-03.mn-man.biz':
+          server_name: '{{ ap01_vars.dns }}'
+          server_aliases:
+            - '{{ ap01_vars.dns }}'
+            - '{{ ap01_vars.san1 }}'
+            - '{{ ap01_vars.ip }}'
+          server_admin: tomcat-master@man-mn.com
+          listen: '{{ ap01_vars.ip }}:80'
+          redirects:
+            /:
+              target: 'https://{{ ap01_vars.dns }}/'
+              type: permanent
+        'uprt-int-apache-03.mn-man.biz-ssl':
+          server_name: '{{ ap01_vars.dns }}'
+          server_aliases:
+            - '{{ ap01_vars.dns }}'
+            - '{{ ap01_vars.san1 }}'
+            - '{{ ap01_vars.ip }}'
+          server_admin: tomcat-master@man-mn.com
+          ssl_certificate_file: /etc/managed-certs/{{ ap01_vars.dns }}.pem
+          ssl_certificate_key_file: /etc/managed-certs/{{ ap01_vars.dns }}.key
+          listen: '{{ ap01_vars.ip }}:443'
+          log_level: error
+          dirs:
+            /srv/www/htdocs:
+              require: all granted
+            /srv/www-01:
+              require: all granted
+          raw_config: &raw_config |
+            <FilesMatch "\.(html)$">
+              FileETag None
+              <IfModule mod_headers.c>
+                Header unset ETag
+                Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+                Header set Pragma "no-cache"
+                Header set Expires "Wed, 12 Jan 1980 05:00:00 GMT"
+              </IfModule>
+            </FilesMatch>
+
+            <Location "/portal">
+              Options +FollowSymLinks
+              RewriteEngine On
+              RewriteCond %{REQUEST_FILENAME} !-f
+              RewriteRule ^ index.html [QSA,L]
+            </Location>
+            Header add Set-Cookie "ROUTEID=.%{BALANCER_WORKER_ROUTE}e; path=/" env=BALANCER_ROUTE_CHANGED
+            <Proxy balancer://{{ service1 }}-cluster>
+              BalancerMember ajp://{{ tc02_vars.ip }}:{{ tc02_vars.port }} route=s1
+              BalancerMember ajp://{{ tc03_vars.ip }}:{{ tc03_vars.port }} route=s2
+              ProxySet stickysession=ROUTEID
+            </Proxy>
+            <Proxy balancer://{{ service2 }}-cluster>
+              BalancerMember ajp://{{ tc11r_vars.ip }}:{{ tc11r_vars.port }} route=s1
+              BalancerMember ajp://{{ tc12r_vars.ip }}:{{ tc12r_vars.port }} route=s2
+              ProxySet stickysession=ROUTEID
+            </Proxy>
+            <Proxy balancer://{{ service3 }}-cluster>
+              BalancerMember ajp://{{ tc06_vars.ip }}:{{ tc06_vars.port }} route=s1
+              BalancerMember ajp://{{ tc07_vars.ip }}:{{ tc07_vars.port }} route=s2
+              ProxySet stickysession=ROUTEID
+            </Proxy>
+            <Proxy balancer://{{ service4 }}-cluster>
+              BalancerMember ajp://{{ tc06_vars.ip }}:{{ tc06_vars.port }} route=s1
+              BalancerMember ajp://{{ tc07_vars.ip }}:{{ tc07_vars.port }} route=s2
+              ProxySet stickysession=ROUTEID
+            </Proxy>
+
+          reverse_proxies: *manager_proxies
+
+    '02':
+      acl_set: bdc_default_int_apache
+      document_root: /srv/www-02
+      # BEGIN error_pages
+      document_root_error: /srv/www-02/error_pages/
+      config_sets:
+        tomcat_error_page_no404: true
+      # END error_pages
+
+      raw_config: |
+        ErrorDocument 404 /
+
+      vhosts:
+        status-02:
+          server_name: status.tomcat.net
+          server_admin: tomcat-master@mawoh.de
+          listen: 127.0.0.1:10081
+          locations:
+            '/server-status':
+              set_handler: server-status
+              require: all granted
+        'uprt-int-apache-04.mn-man.biz':
+          server_name: '{{ ap02_vars.dns }}'
+          server_aliases:
+            - '{{ ap02_vars.dns }}'
+            - '{{ ap02_vars.san1 }}'
+            - '{{ ap02_vars.ip }}'
+          server_admin: tomcat-master@man-mn.com
+          listen: '{{ ap02_vars.ip }}:80'
+          redirects:
+            /:
+              target: 'https://{{ ap02_vars.dns }}/'
+              type: permanent
+        'uprt-int-apache-04.mn-man.biz-ssl':
+          server_name: '{{ ap02_vars.dns }}'
+          server_aliases:
+            - '{{ ap02_vars.dns }}'
+            - '{{ ap02_vars.san1 }}'
+            - '{{ ap02_vars.ip }}'
+          server_admin: tomcat-master@man-mn.com
+          ssl_certificate_file: /etc/managed-certs/{{ ap02_vars.dns }}.pem
+          ssl_certificate_key_file: /etc/managed-certs/{{ ap02_vars.dns }}.key
+          listen: '{{ ap02_vars.ip }}:443'
+          log_level: error
+          dirs:
+            /srv/www/htdocs:
+              require: all granted
+            /srv/www-02:
+              require: all granted
+          raw_config: *raw_config
+          reverse_proxies: *target_proxies
+
+    '03':
+      acl_set: bdc_default_int_apache
+      document_root: /srv/www-03
+      # BEGIN error_pages
+      document_root_error: /srv/www-03/error_pages/
+      config_sets:
+        tomcat_error_page_no404: true
+      # END error_pages
+
+      raw_config: |
+        ErrorDocument 404 /
+
+      vhosts:
+        status-03:
+          server_name: status.tomcat.net
+          server_admin: tomcat-master@mawoh.de
+          listen: 127.0.0.1:10082
+          locations:
+            '/server-status':
+              set_handler: server-status
+              require: all granted
+        'uprt-int-apache-05.mn-man.biz':
+          server_name: '{{ ap03_vars.dns }}'
+          server_aliases:
+            - '{{ ap03_vars.dns }}'
+            - '{{ ap03_vars.san1 }}'
+            - '{{ ap03_vars.ip }}'
+          server_admin: tomcat-master@man-mn.com
+          listen: '{{ ap03_vars.ip }}:80'
+          redirects:
+            /:
+              target: 'https://{{ ap03_vars.dns }}/'
+              type: permanent
+        'uprt-int-apache-05.mn-man.biz-ssl':
+          server_name: '{{ ap03_vars.dns }}'
+          server_aliases:
+            - '{{ ap03_vars.dns }}'
+            - '{{ ap03_vars.san1 }}'
+            - '{{ ap03_vars.ip }}'
+          server_admin: tomcat-master@man-mn.com
+          ssl_certificate_file: /etc/managed-certs/{{ ap03_vars.dns }}.pem
+          ssl_certificate_key_file: /etc/managed-certs/{{ ap03_vars.dns }}.key
+          listen: '{{ ap03_vars.ip }}:443'
+          log_level: error
+          dirs:
+            /srv/www/htdocs:
+              require: all granted
+            /srv/www-03:
+              require: all granted
+          raw_config: *raw_config
+          reverse_proxies: *target_proxies
+
+    '04':
+      acl_set: bdc_default_int_apache
+      document_root: /srv/www-04
+      # BEGIN error_pages
+      document_root_error: /srv/www-04/error_pages/
+      config_sets:
+        tomcat_error_page_no404: true
+      # END error_pages
+
+      raw_config: |
+        ErrorDocument 404 /
+
+      vhosts:
+        status-04:
+          server_name: status.tomcat.net
+          server_admin: tomcat-master@mawoh.de
+          listen: 127.0.0.1:10083
+          locations:
+            '/server-status':
+              set_handler: server-status
+              require: all granted
+        'uprt-int-apache-06.mn-man.biz':
+          server_name: '{{ ap04_vars.dns }}'
+          server_aliases:
+            - '{{ ap04_vars.dns }}'
+            - '{{ ap04_vars.san1 }}'
+            - '{{ ap04_vars.ip }}'
+          server_admin: tomcat-master@man-mn.com
+          listen: '{{ ap04_vars.ip }}:80'
+          redirects:
+            /:
+              target: 'https://{{ ap04_vars.dns }}/'
+              type: permanent
+        'uprt-int-apache-06.mn-man.biz-ssl':
+          server_name: '{{ ap04_vars.dns }}'
+          server_aliases:
+            - '{{ ap04_vars.dns }}'
+            - '{{ ap04_vars.san1 }}'
+            - '{{ ap04_vars.ip }}'
+          server_admin: tomcat-master@man-mn.com
+          ssl_certificate_file: /etc/managed-certs/{{ ap04_vars.dns }}.pem
+          ssl_certificate_key_file: /etc/managed-certs/{{ ap04_vars.dns }}.key
+          listen: '{{ ap04_vars.ip }}:443'
+          log_level: error
+          dirs:
+            /srv/www/htdocs:
+              require: all granted
+            /srv/www-04:
+              require: all granted
+          raw_config: *raw_config
+          reverse_proxies: *target_proxies
+...

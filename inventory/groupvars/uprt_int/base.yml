@@ -1,0 +1,13 @@
+---
+# UPRT INT
+
+middleware_base_uprt_int_base:
+  packages:
+    absent:
+      - java-11-openjdk
+      - java-11-openjdk-devel
+      - java-11-openjdk-headless
+  applied_acl_sets:
+    - var_dumps
+    - app_data
+...

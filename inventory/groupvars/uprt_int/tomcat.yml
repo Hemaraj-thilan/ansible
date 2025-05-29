@@ -1,0 +1,18 @@
+---
+# UPRT INT
+
+middleware_tomcat_uprt_int_tomcat:
+  java_home: /usr/lib/jvm/jre-11/
+  java_pkgs:
+    - java-11-openjdk-devel
+    - tzdata-java
+##### REMINDER If something in this group_vars definitino is changed, you should propably look at the uprt-host_vars files######
+# instances:
+#   '01':
+#     acl_set: bdc_default_int_tomcat
+#     webapp_dir: /srv/tomcat-01/webapps
+#     security_manager: false
+#     log_dir: /var/log/tomcat-01
+#     env_vars:
+#       LC_ALL: "en_US.UTF-8"
+...
